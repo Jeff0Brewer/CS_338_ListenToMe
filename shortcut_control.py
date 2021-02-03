@@ -7,9 +7,7 @@ k = PyKeyboard()
 shortcuts = {
 	'toggle_video': ['shift', 'command', 'v'],
 	'toggle_audio': ['shift', 'command', 'a'],
-	'toggle_screen_share': ['shift', 'command', 's'],
 	'toggle_chat': ['shift', 'command', 'h'],
-	'join_meeting': ['command', 'j'],
 	'start_meeting': ['control', 'command', 'v'],
 	'toggle_minimal': ['shift', 'command', 'm'],
 	'toggle_hand_raise': ['control', 'y']

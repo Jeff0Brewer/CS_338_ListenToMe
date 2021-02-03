@@ -1,15 +1,14 @@
-import speech_recognition as sr
+import speech_recognition as sr # ref: https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst
 from shortcut_control import shortcut
 
 keywords = {
-	'audio': 'audio',
-	'video': 'video',
-	'send_chat': 'send message',
+	'toggle_audio': 'audio',
+	'toggle_video': 'video',
 	'toggle_chat': 'chat',
-	'screen_share': 'screen share',
 	'start_meeting': 'new meeting',
 	'toggle_minimal': 'minimal',
 	'toggle_hand_raise': 'hand',
+	'send_chat': 'send message',
 	'quit': 'stop listening'
 }
 
@@ -26,12 +25,10 @@ while True:
 	except:
 		print('NO SPEECH DETECTED')
 
-	if keywords['audio'] in text:
+	if keywords['toggle_audio'] in text:
 		shortcut('toggle_audio')
-	if keywords['video'] in text:
+	if keywords['toggle_video'] in text:
 		shortcut('toggle_video')
-	if keywords['screen_share'] in text:
-		shortcut('toggle_screen_share')
 	if keywords['start_meeting'] in text:
 		shortcut('start_meeting')
 	if keywords['toggle_minimal'] in text:
