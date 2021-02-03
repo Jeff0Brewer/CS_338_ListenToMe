@@ -1,8 +1,6 @@
 import speech_recognition as sr
 from shortcut_control import shortcut
 
-r = sr.Recognizer()
-
 keywords = {
 	'audio': 'audio',
 	'video': 'video',
@@ -15,9 +13,11 @@ keywords = {
 	'quit': 'stop listening'
 }
 
+r = sr.Recognizer()
 while True:
 	with sr.Microphone() as source:
-		audio = r.listen(source, phrase_time_limit = 10)
+		r.adjust_for_ambient_noise(source)
+		audio = r.listen(source)
 		
 	text = ''
 	try:
