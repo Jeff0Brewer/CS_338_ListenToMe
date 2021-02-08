@@ -1,23 +1,41 @@
 from pykeyboard import PyKeyboard # git: https://github.com/SavinaRoja/PyUserInput/blob/master/pykeyboard
 import keyboard # doc: https://pypi.org/project/keyboard/
+import platform
+
+# Check if Mac or Windows
+system = platform.system() 
 
 k = PyKeyboard()
 
-# shortcuts only currently defined for mac os
-shortcuts = {
+# Mac OS shortcuts
+shortcuts_MAC = {
 	'toggle_video': ['shift', 'command', 'v'],
 	'toggle_audio': ['shift', 'command', 'a'],
 	'toggle_chat': ['shift', 'command', 'h'],
 	'start_meeting': ['control', 'command', 'v'],
 	'toggle_minimal': ['shift', 'command', 'm'],
-	'toggle_hand_raise': ['control', 'y']
+	'toggle_hand_raise': ['control', 'y'],
+	'focus': [],
+	'fullscreen': ['shift', 'command', 'f']
 }
+
+# Windows shortcuts
+shortcuts_WIN = {
+	'toggle_video': [k.alt_key, 'v'],
+	'toggle_audio': [k.alt_key, 'a'],
+	'toggle_chat': [k.alt_key, 'h'],
+	'start_meeting': [],
+	'toggle_minimal': [k.alt_key, 'm'],
+	'toggle_hand_raise': [k.alt_key, 'y'],
+	'focus': [k.control_key, k.alt_key, k.shift_key],
+	'fullscreen': [k.alt_key, 'f']
+}
+
+shortcuts = shortcuts_MAC if system == 'Darwin' else shortcuts_WIN
 
 # function to call a shortcut and optionally type out a string
 def shortcut(identifier, content = ''):
-	for key in shortcuts[identifier]:
-		k.press_key(key)
-	for key in shortcuts[identifier]:
-		k.release_key(key)
+	k.press_keys(shortcuts[identifier])
 	if(len(content) > 0):
 		keyboard.write(content)
+
