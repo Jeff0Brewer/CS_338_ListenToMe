@@ -18,8 +18,6 @@ checks = [
 
 checking = False
 
-threads = []
-
 def start_state_checking(wait_time):
 	global checking
 	checking = True
