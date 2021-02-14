@@ -39,7 +39,6 @@ def check_state(check, wait_time):
 			-1 if len(check) != 4 else check[3], 
 			wait_time])
 	search_thread.start()
-	threads.append(search_thread)
 
 def search_loop(image_path, state_key, check_value, alt_value, wait_time):
 	global checking
