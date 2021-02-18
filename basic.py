@@ -4,15 +4,15 @@ from state_track import state, start_state_checking, stop_state_checking
 import time
 from language_helpers import *
 
-KEYWORD = "hey montana"
+KEYWORD = "ok tony"
 
 keywords = {
-	'toggle_audio': 'toggle my audio',
-	'toggle_video': 'toggle my video',
-	'toggle_chat': 'toggle the chat',
+	'toggle_audio': 'turn on my audio',
+	'toggle_video': 'turn on my video',
+	'toggle_chat': 'open the chat',
 	'start_meeting': 'start a new meeting',
 	'toggle_minimal': 'switch to minimal window',
-	'toggle_hand_raise': 'toggle my hand raise',
+	'toggle_hand_raise': 'raise my hand',
 	'send_chat': 'send this message',
 	'quit': 'stop listening'
 }
@@ -31,17 +31,17 @@ while True:
 
 	text = ''
 	try:
-		text = r.recognize_google(audio)
+		text = r.recognize_google(audio).lower()
 		print(text)
 	except:
 		print('NO SPEECH DETECTED')
 
-	if text: shortcut('focus')
-	time.sleep(.1)
 
 	if KEYWORD in text:
+		shortcut('focus')
+		time.sleep(.1)
 		text = sliceAfterSubstr(text, KEYWORD)
-		for command, kw in keywords:
+		for command, kw in keywords.items():
 			if kw in text:
 				if command not in ['toggle_chat', 'send_chat', 'quit']:
 					shortcut(command)
