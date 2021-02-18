@@ -2,15 +2,18 @@ import speech_recognition as sr
 from shortcut_control import shortcut
 from state_track import state, start_state_checking, stop_state_checking
 import time
+from language_helpers import *
+
+KEYWORD = "hey montana"
 
 keywords = {
-	'toggle_audio': 'audio',
-	'toggle_video': 'video',
-	'toggle_chat': 'chat',
-	'start_meeting': 'new meeting',
-	'toggle_minimal': 'minimal',
-	'toggle_hand_raise': 'hand',
-	'send_chat': 'send message',
+	'toggle_audio': 'toggle my audio',
+	'toggle_video': 'toggle my video',
+	'toggle_chat': 'toggle the chat',
+	'start_meeting': 'start a new meeting',
+	'toggle_minimal': 'switch to minimal window',
+	'toggle_hand_raise': 'toggle my hand raise',
+	'send_chat': 'send this message',
 	'quit': 'stop listening'
 }
 
@@ -36,25 +39,21 @@ while True:
 	if text: shortcut('focus')
 	time.sleep(.1)
 
-	if keywords['toggle_audio'] in text:
-		shortcut('toggle_audio')
-	if keywords['toggle_video'] in text:
-		shortcut('toggle_video')
-	if keywords['start_meeting'] in text:
-		shortcut('start_meeting')
-	if keywords['toggle_minimal'] in text:
-		shortcut('toggle_minimal')
-	if keywords['toggle_hand_raise'] in text:
-		shortcut('toggle_hand_raise')
-	if keywords['send_chat'] in text:
-		if state['chat'] == 1:
-			shortcut('toggle_chat')
-		shortcut('toggle_chat', content=text.split(
-		    keywords['send_chat'])[1][1:] + '\n')
-		if state['chat'] == 0:
-			shortcut('toggle_chat')
-	if keywords['quit'] in text:
-		stop_state_checking()
-		exit()
+	if KEYWORD in text:
+		text = sliceAfterSubstr(text, KEYWORD)
+		for command, kw in keywords:
+			if kw in text:
+				if command not in ['toggle_chat', 'send_chat', 'quit']:
+					shortcut(command)
+				if command == 'send_chat':
+					if state['chat'] == 1:
+						shortcut('toggle_chat')
+					shortcut('toggle_chat', content=text.split(
+						keywords['send_chat'])[1][1:] + '\n')
+					if state['chat'] == 0:
+						shortcut('toggle_chat')
+				if command == 'quit':
+					stop_state_checking()
+					exit()
 
 	print(state)
