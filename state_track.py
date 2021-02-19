@@ -4,7 +4,8 @@ from python_imagesearch.imagesearch import imagesearch
 state = {
 	'audio': 0,
 	'video': 0,
-	'chat': 0
+	'chat': 0,
+	'share': 0
 }
 
 # images may need to change for different ui settings
@@ -13,7 +14,8 @@ checks = [
 	[os.path.join('img', 'mute.png'), 'audio', 1],
 	[os.path.join('img', 'start_video.png'), 'video', 0],
 	[os.path.join('img', 'stop_video.png'), 'video', 1],
-	[os.path.join('img', 'chat_menu.png'), 'chat', 1, 0]
+	[os.path.join('img', 'chat_menu.png'), 'chat', 1, 0],
+	[os.path.join('img', 'stop_share.png'), 'share', 1, 0]
 ]
 
 checking = False
