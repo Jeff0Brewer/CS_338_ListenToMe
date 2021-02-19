@@ -1,29 +1,40 @@
+import time
 import speech_recognition as sr
 from shortcut_control import shortcut
-from state_track import state, start_state_checking, stop_state_checking
-import time
+from state_track import state, start_state_checking
+from commands import *
 from language_helpers import *
 
-KEYWORD = "ok tony"
+KEYWORD = "hey tony"
 
-keywords = {
-	'toggle_audio': 'turn on my audio',
-	'toggle_video': 'turn on my video',
-	'toggle_chat': 'open the chat',
-	'start_meeting': 'start a new meeting',
-	'toggle_minimal': 'switch to minimal window',
-	'toggle_hand_raise': 'raise my hand',
-	'send_chat': 'send this message',
-	'quit': 'stop listening'
+commands = {
+	'toggle my hand': toggle_hand,
+	'toggle fullscreen': toggle_fullscreen,
+	'mute me': mute,
+	'unmute me': unmute,
+	'start my video': start_video,
+	'stop my video': stop_video,
+	'open the chat': open_chat,
+	'close the chat': close_chat,
+	'send this message': send_chat,
+	'stop listening': quit
 }
+
+macros = {}
+with open('user_settings.txt') as file:
+	text = file.read()
+	KEYWORD = sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nMACRO_COMMANDS_')
+	for line in text.split('MACRO_COMMANDS_\n')[1].split('\n'):
+		command, content = line.split(': ')
+		commands['send ' + command] = send_chat
+		macros['send ' + command] = content + '\n'
 
 r = sr.Recognizer()
 with sr.Microphone() as source:
     r.adjust_for_ambient_noise(source, duration=3)
 r.dynamic_energy_threshold = False
 
-
-start_state_checking(3)
+start_state_checking(2)
 while True:
 	with sr.Microphone() as source:
 		print(r.energy_threshold)
@@ -36,24 +47,17 @@ while True:
 	except:
 		print('NO SPEECH DETECTED')
 
-
 	if KEYWORD in text:
 		shortcut('focus')
 		time.sleep(.1)
 		text = sliceAfterSubstr(text, KEYWORD)
-		for command, kw in keywords.items():
-			if kw in text:
-				if command not in ['toggle_chat', 'send_chat', 'quit']:
-					shortcut(command)
-				if command == 'send_chat':
-					if state['chat'] == 1:
-						shortcut('toggle_chat')
-					shortcut('toggle_chat', content=text.split(
-						keywords['send_chat'])[1][1:] + '\n')
-					if state['chat'] == 0:
-						shortcut('toggle_chat')
-				if command == 'quit':
-					stop_state_checking()
-					exit()
-
+		for command, callback in commands.items():
+			if command in text:
+				if 'send' in command:
+					if 'message' in command:
+						callback(sliceAfterSubstr(text, command + ' ') + '\n')
+					else:
+						callback(macros[command])
+				else:
+					callback()
 	print(state)

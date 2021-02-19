@@ -13,11 +13,9 @@ if system == 'Darwin':
 		'toggle_video': ['shift', 'command', 'v'],
 		'toggle_audio': ['shift', 'command', 'a'],
 		'toggle_chat': ['shift', 'command', 'h'],
-		'start_meeting': ['control', 'command', 'v'],
-		'toggle_minimal': ['shift', 'command', 'm'],
-		'toggle_hand_raise': ['control', 'y'],
-		'focus': [],
-		'fullscreen': ['shift', 'command', 'f']
+		'toggle_hand': ['control', 'y'],
+		'toggle_fullscreen': ['shift', 'command', 'f'],
+		'focus': []
 	}
 else:
 	# Windows shortcuts
@@ -25,11 +23,9 @@ else:
 		'toggle_video': [k.alt_key, 'v'],
 		'toggle_audio': [k.alt_key, 'a'],
 		'toggle_chat': [k.alt_key, 'h'],
-		'start_meeting': [],
-		'toggle_minimal': [k.alt_key, 'm'],
-		'toggle_hand_raise': [k.alt_key, 'y'],
-		'focus': [k.control_key, k.alt_key, k.shift_key],
-		'fullscreen': [k.alt_key, 'f']
+		'toggle_hand': [k.alt_key, 'y'],
+		'toggle_fullscreen': [k.alt_key, 'f'],
+		'focus': [k.control_key, k.alt_key, k.shift_key]
 	}
 
 # function to call a shortcut and optionally type out a string

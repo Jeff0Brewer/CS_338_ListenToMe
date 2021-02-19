@@ -1,0 +1,8 @@
+SYSTEM_KEYWORD_
+hey tony
+
+MACRO_COMMANDS_
+my email: examplemail@gmail.com
+my phone number: 1-800-BUY-COWS
+my address: 200 Lengthy Rd.
+don cheadle's phone number: 1-982-194-0133
