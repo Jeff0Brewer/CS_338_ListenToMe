@@ -22,7 +22,6 @@ else:
 
 with open('user_settings.txt') as file:
 	text = file.read()
-	sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_')
 	for line in sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_\n', '\n\nMACRO_COMMANDS_').split('\n'):
 		name, keys = line.split(': ')
 		name = 'toggle_' + name
