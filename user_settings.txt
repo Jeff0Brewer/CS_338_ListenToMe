@@ -1,6 +1,14 @@
 SYSTEM_KEYWORD_
 hey tony
 
+ZOOM_SHORTCUTS_
+video: shift, command, v
+audio: shift, command, a
+chat: shift, command, h
+share: shift, command, s
+hand: control, y
+fullscreen: shift, command, f
+
 MACRO_COMMANDS_
 my email: examplemail@gmail.com
 my phone number: 1-800-BUY-COWS

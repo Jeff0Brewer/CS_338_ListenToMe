@@ -23,6 +23,14 @@ def stop_video():
 	if state['video'] == 1:
 		shortcut('toggle_video')
 
+def start_share():
+	if state['share'] == 0:
+		shortcut('toggle_share', content='\n')
+
+def stop_share():
+	if state['share'] == 1:
+		shortcut('toggle_share')
+
 def open_chat():
 	if state['chat'] == 0:
 		shortcut('toggle_chat')

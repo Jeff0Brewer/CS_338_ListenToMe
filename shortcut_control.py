@@ -1,3 +1,4 @@
+from language_helpers import *
 from pykeyboard import PyKeyboard # git: https://github.com/SavinaRoja/PyUserInput/blob/master/pykeyboard
 import keyboard # doc: https://pypi.org/project/keyboard/
 import platform
@@ -6,27 +7,31 @@ import platform
 system = platform.system() 
 
 k = PyKeyboard()
+shortcuts = {}
 
-if system == 'Darwin':
-	# Mac OS shortcuts
-	shortcuts = {
-		'toggle_video': ['shift', 'command', 'v'],
-		'toggle_audio': ['shift', 'command', 'a'],
-		'toggle_chat': ['shift', 'command', 'h'],
-		'toggle_hand': ['control', 'y'],
-		'toggle_fullscreen': ['shift', 'command', 'f'],
-		'focus': []
+windows_keymap = {}
+if system != 'Darwin':
+	windows_keymap = {
+		'alt': k.alt_key,
+		'control': k.control_key,
+		'shift': k.shift_key
 	}
+	shortcuts['focus'] = [k.control_key, k.alt_key, k.shift_key]
 else:
-	# Windows shortcuts
-	shortcuts = {
-		'toggle_video': [k.alt_key, 'v'],
-		'toggle_audio': [k.alt_key, 'a'],
-		'toggle_chat': [k.alt_key, 'h'],
-		'toggle_hand': [k.alt_key, 'y'],
-		'toggle_fullscreen': [k.alt_key, 'f'],
-		'focus': [k.control_key, k.alt_key, k.shift_key]
-	}
+	shortcuts['focus'] = []
+
+with open('user_settings.txt') as file:
+	text = file.read()
+	sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_')
+	for line in sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_\n', '\n\nMACRO_COMMANDS_').split('\n'):
+		name, keys = line.split(': ')
+		name = 'toggle_' + name
+		keys = keys.split(', ')
+		if system != 'Darwin':
+			for i in range(len(keys)):
+				if keys[i] in windows_keymap:
+					keys[i] = windows_keymap[keys[i]]
+		shortcuts[name] = keys
 
 # function to call a shortcut and optionally type out a string
 def shortcut(identifier, content = ''):
