@@ -22,7 +22,7 @@ else:
 
 with open('user_settings.txt') as file:
 	text = file.read()
-	shortcut_settings = sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_MAC\n', '\n\nZOOM_SHORTCUTS_WIN_').split('\n') if system == 'Darwin' else sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_WIN_\n', '\n\nMACRO_COMMANDS_').split('\n')
+	shortcut_settings = sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_MAC_\n', '\n\nZOOM_SHORTCUTS_WIN_').split('\n')
 	for line in shortcut_settings: 
 		name, keys = line.split(': ')
 		name = 'toggle_' + name
