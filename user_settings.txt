@@ -1,21 +1,13 @@
 SYSTEM_KEYWORD_
 hey tony
 
-ZOOM_SHORTCUTS_MAC_
+ZOOM_SHORTCUTS_
 video: shift, command, v
 audio: shift, command, a
 chat: shift, command, h
 share: shift, command, s
 hand: control, y
 fullscreen: shift, command, f
-
-ZOOM_SHORTCUTS_WIN_
-video: alt, v
-audio: alt, a
-chat: alt, h
-share: alt, s
-hand: alt, y
-fullscreen: alt, f
 
 MACRO_COMMANDS_
 my email: examplemail@gmail.com
