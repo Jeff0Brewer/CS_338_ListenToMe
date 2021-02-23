@@ -15,7 +15,13 @@ checks = [
 	[os.path.join('img', 'start_video.png'), 'video', 0],
 	[os.path.join('img', 'stop_video.png'), 'video', 1],
 	[os.path.join('img', 'chat_menu.png'), 'chat', 1, 0],
-	[os.path.join('img', 'stop_share.png'), 'share', 1, 0]
+	[os.path.join('img', 'stop_share.png'), 'share', 1, 0],
+	[os.path.join('img', 'win', 'unmute.png'), 'audio', 0],
+	[os.path.join('img', 'win', 'mute.png'), 'audio', 1],
+	[os.path.join('img', 'win', 'start_video.png'), 'video', 0],
+	[os.path.join('img', 'win', 'stop_video.png'), 'video', 1],
+	[os.path.join('img', 'win', 'chat_menu.png'), 'chat', 1, 0],
+	[os.path.join('img', 'win', 'stop_share.png'), 'share', 1, 0]
 ]
 
 checking = False
@@ -47,7 +53,7 @@ def search_loop(image_path, state_key, check_value, alt_value, wait_time):
 	global state
 
 	while checking:
-		pos = imagesearch(image_path)
+		pos = imagesearch(image_path, .95)
 		if pos[0] != -1:
 			state[state_key] = check_value
 		else: 

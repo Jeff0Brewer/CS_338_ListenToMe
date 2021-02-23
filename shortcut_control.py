@@ -14,7 +14,7 @@ if system != 'Darwin':
 	windows_keymap = {
 		'alt': k.alt_key,
 		'control': k.control_key,
-		'shift': k.shift_key
+		'shift': k.shift_key,
 	}
 	shortcuts['focus'] = [k.control_key, k.alt_key, k.shift_key]
 else:
@@ -22,7 +22,8 @@ else:
 
 with open('user_settings.txt') as file:
 	text = file.read()
-	for line in sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_\n', '\n\nMACRO_COMMANDS_').split('\n'):
+	shortcut_settings = sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_MAC\n', '\n\nZOOM_SHORTCUTS_WIN_').split('\n') if system == 'Darwin' else sliceBetweenSubstr(text, 'ZOOM_SHORTCUTS_WIN_\n', '\n\nMACRO_COMMANDS_').split('\n')
+	for line in shortcut_settings: 
 		name, keys = line.split(': ')
 		name = 'toggle_' + name
 		keys = keys.split(', ')
