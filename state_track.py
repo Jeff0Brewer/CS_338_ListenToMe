@@ -65,3 +65,4 @@ def search_loop(image_path, state_key, check_value, alt_value, wait_time):
 			if alt_value != -1:
 				state[state_key] = alt_value
 		time.sleep(wait_time)
+
