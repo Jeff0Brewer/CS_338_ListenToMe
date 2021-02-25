@@ -24,7 +24,7 @@ def main():
 		r.adjust_for_ambient_noise(source, duration=3)
 	r.dynamic_energy_threshold = False
 
-	start_state_checking(5)
+	start_state_checking(2)
 	while True:
 		with sr.Microphone() as source:
 			print(r.energy_threshold)
@@ -42,7 +42,8 @@ def main():
 			time.sleep(.1)
 			text = sliceAfterSubstr(text, KEYWORD)
 			if not text.strip(): continue
-			text = mostSimilar(text, [x for x in vectorized_commands])[0]
+			if 'send' not in text:
+				text = mostSimilar(text, [x for x in vectorized_commands])[0]
 			for command, callback in commands.items():
 				if command in text:
 					if 'send' in command:
