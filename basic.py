@@ -2,25 +2,12 @@ import time
 import speech_recognition as sr
 from shortcut_control import shortcut
 from state_track import state, start_state_checking
-from commands import *
+from commands import commands
+from functions import *
 from language_helpers import *
+from nlp import mostSimilar, vectorized_commands
 
 KEYWORD = "hey tony"
-
-commands = {
-	'toggle my hand': toggle_hand,
-	'toggle fullscreen': toggle_fullscreen,
-	'mute me': mute,
-	'unmute me': unmute,
-	'start my video': start_video,
-	'stop my video': stop_video,
-	'share my screen': start_share,
-	'stop screen sharing': stop_share,
-	'open the chat': open_chat,
-	'close the chat': close_chat,
-	'send this message': send_chat,
-	'stop listening': quit
-}
 
 macros = {}
 with open('user_settings.txt') as file:
@@ -31,35 +18,43 @@ with open('user_settings.txt') as file:
 		commands['send ' + command] = send_chat
 		macros['send ' + command] = content + '\n'
 
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    r.adjust_for_ambient_noise(source, duration=3)
-r.dynamic_energy_threshold = False
-
-start_state_checking(5)
-while True:
+def main():
+	r = sr.Recognizer()
 	with sr.Microphone() as source:
-		print(r.energy_threshold)
-		audio = r.listen(source)
+		r.adjust_for_ambient_noise(source, duration=3)
+	r.dynamic_energy_threshold = False
 
-	text = ''
-	try:
-		text = r.recognize_google(audio).lower()
-		print(text)
-	except:
-		print('NO SPEECH DETECTED')
+	start_state_checking(5)
+	while True:
+		with sr.Microphone() as source:
+			print(r.energy_threshold)
+			audio = r.listen(source)
 
-	if KEYWORD in text:
-		shortcut('focus')
-		time.sleep(.1)
-		text = sliceAfterSubstr(text, KEYWORD)
-		for command, callback in commands.items():
-			if command in text:
-				if 'send' in command:
-					if 'message' in command:
-						callback(sliceAfterSubstr(text, command + ' ') + '\n')
+		text = ''
+		try:
+			text = r.recognize_google(audio).lower()
+			print(text)
+		except:
+			print('NO SPEECH DETECTED')
+
+		if KEYWORD in text:
+			shortcut('focus')
+			time.sleep(.1)
+			text = sliceAfterSubstr(text, KEYWORD)
+			if not text.strip(): continue
+			text = mostSimilar(text, [x for x in vectorized_commands])[0]
+			for command, callback in commands.items():
+				if command in text:
+					if 'send' in command:
+						if 'message' in command:
+							callback(sliceAfterSubstr(text, command + ' ') + '\n')
+						else:
+							callback(macros[command])
 					else:
-						callback(macros[command])
-				else:
-					callback()
-	print(state)
+						callback()
+					break
+		print(state)
+
+
+if __name__ == '__main__':
+	main()
