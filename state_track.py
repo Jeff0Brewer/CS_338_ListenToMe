@@ -1,6 +1,7 @@
 import os, time, threading
 from python_imagesearch.imagesearch import imagesearch
-import platform
+from pyautogui import locateOnScreen
+from shortcut_control import curr_system
 
 state = {
 	'audio': 0,
@@ -11,7 +12,7 @@ state = {
 
 # images may need to change for different ui settings
 img_path = 'img'
-if platform.system != 'Darwin':
+if curr_system != 'Darwin':
 	img_path = os.path.join(img_path, 'win')
 checks = [
 	[os.path.join('img', 'unmute.png'), 'audio', 0],
@@ -51,10 +52,17 @@ def search_loop(image_path, state_key, check_value, alt_value, wait_time):
 	global state
 
 	while checking:
-		pos = imagesearch(image_path, .8)
-		if pos[0] != -1:
+		if curr_system == 'Darwin':
+			pos = imagesearch(image_path, .8)
+			detected = True if pos[0] != -1 else False
+		else:
+			pos = imagesearch(image_path, .9)
+			detected = True if pos[0] != -1 else False
+
+		if detected:
 			state[state_key] = check_value
 		else: 
 			if alt_value != -1:
 				state[state_key] = alt_value
 		time.sleep(wait_time)
+

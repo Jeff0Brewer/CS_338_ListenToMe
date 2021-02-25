@@ -4,13 +4,13 @@ import keyboard # doc: https://pypi.org/project/keyboard/
 import platform
 
 # Check if Mac or Windows
-system = platform.system() 
+curr_system = platform.system() 
 
 k = PyKeyboard()
 shortcuts = {}
 
 windows_keymap = {}
-if system != 'Darwin':
+if curr_system != 'Darwin':
 	windows_keymap = {
 		'alt': k.alt_key,
 		'control': k.control_key,
@@ -27,7 +27,7 @@ with open('user_settings.txt') as file:
 		name, keys = line.split(': ')
 		name = 'toggle_' + name
 		keys = keys.split(', ')
-		if system != 'Darwin':
+		if curr_system != 'Darwin':
 			for i in range(len(keys)):
 				if keys[i] in windows_keymap:
 					keys[i] = windows_keymap[keys[i]]
