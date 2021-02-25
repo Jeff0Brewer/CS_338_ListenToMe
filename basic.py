@@ -1,11 +1,11 @@
-import time
-import speech_recognition as sr
-from shortcut_control import shortcut
+import time, threading
+from nlp import mostSimilar, vectorized_commands
+from speechrecog import text_stream, start_listen
 from state_track import state, start_state_checking
+from shortcut_control import shortcut
 from commands import commands
 from functions import *
 from language_helpers import *
-from nlp import mostSimilar, vectorized_commands
 
 KEYWORD = "hey tony"
 
@@ -19,31 +19,27 @@ with open('user_settings.txt') as file:
 		macros['send ' + command] = content + '\n'
 
 def main():
-	r = sr.Recognizer()
-	with sr.Microphone() as source:
-		r.adjust_for_ambient_noise(source, duration=3)
-	r.dynamic_energy_threshold = False
+	global text_stream
 
-	start_state_checking(2)
+	start_state_checking(3)
+	start_listen()
 	while True:
-		with sr.Microphone() as source:
-			print(r.energy_threshold)
-			audio = r.listen(source)
+		while KEYWORD not in text_stream[0]:
+			time.sleep(.25)
+		text = text_stream[0]
+		text_stream[0] = ''
 
-		text = ''
-		try:
-			text = r.recognize_google(audio).lower()
-			print(text)
-		except:
-			print('NO SPEECH DETECTED')
+		print(text)
+		print(state)
 
 		if KEYWORD in text:
 			shortcut('focus')
 			time.sleep(.1)
 			text = sliceAfterSubstr(text, KEYWORD)
 			if not text.strip(): continue
-			if 'send' not in text:
-				text = mostSimilar(text, [x for x in vectorized_commands])[0]
+			compared = mostSimilar(text, [x for x in vectorized_commands])[0]
+			if 'send' not in compared:
+				text = compared
 			for command, callback in commands.items():
 				if command in text:
 					if 'send' in command:
@@ -54,7 +50,6 @@ def main():
 					else:
 						callback()
 					break
-		print(state)
 
 
 if __name__ == '__main__':
