@@ -12,7 +12,7 @@ KEYWORD = "hey tony"
 macros = {}
 with open('user_settings.txt') as file:
 	text = file.read()
-	KEYWORD = sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_')
+	KEYWORD = sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_').lower()
 	for line in text.split('MACRO_COMMANDS_\n')[1].split('\n'):
 		command, content = line.split(': ')
 		commands['send ' + command] = send_chat

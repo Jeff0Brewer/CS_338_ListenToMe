@@ -5,10 +5,10 @@ text_stream = ['']
 listening = False
 
 r = sr.Recognizer()
-with sr.Microphone() as source:
-	r.adjust_for_ambient_noise(source, duration=3)
 r.dynamic_energy_threshold = False
 r.pause_threshold = .6
+with sr.Microphone() as source:
+	r.adjust_for_ambient_noise(source, duration=3)
 print(r.energy_threshold)
 
 def recognize_callback(audio):

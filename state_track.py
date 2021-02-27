@@ -52,14 +52,8 @@ def search_loop(image_path, state_key, check_value, alt_value, wait_time):
 	global state
 
 	while checking:
-		if curr_system == 'Darwin':
-			pos = imagesearch(image_path, .8)
-			detected = True if pos[0] != -1 else False
-		else:
-			pos = imagesearch(image_path, .9)
-			detected = True if pos[0] != -1 else False
-
-		if detected:
+		precision = .8 if curr_system == 'Darwin' else .9
+		if imagesearch(image_path, precision)[0] != -1:
 			state[state_key] = check_value
 		else: 
 			if alt_value != -1:
