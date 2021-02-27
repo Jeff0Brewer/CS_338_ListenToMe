@@ -32,24 +32,24 @@ def main():
 		print(text)
 		print(state)
 
-		if KEYWORD in text:
-			shortcut('focus')
-			time.sleep(.1)
-			text = sliceAfterSubstr(text, KEYWORD)
-			if not text.strip(): continue
-			compared = mostSimilar(text, [x for x in vectorized_commands])[0]
-			if 'send' not in compared:
-				text = compared
-			for command, callback in commands.items():
-				if command in text:
-					if 'send' in command:
-						if 'message' in command:
-							callback(sliceAfterSubstr(text, command + ' ') + '\n')
-						else:
-							callback(macros[command])
+		shortcut('focus')
+		time.sleep(.1)
+
+		text = sliceAfterSubstr(text, KEYWORD)
+		if not text.strip(): continue
+		compared = mostSimilar(text, [x for x in vectorized_commands])[0]
+		if 'send' not in compared:
+			text = compared
+		for command, callback in commands.items():
+			if command in text:
+				if 'send' in command:
+					if 'message' in command:
+						callback(sliceAfterSubstr(text, command + ' ') + '\n')
 					else:
-						callback()
-					break
+						callback(macros[command])
+				else:
+					callback()
+				break
 
 
 if __name__ == '__main__':

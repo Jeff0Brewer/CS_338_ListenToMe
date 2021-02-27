@@ -1,5 +1,5 @@
 SYSTEM_KEYWORD_
-hey buddy
+hey tony
 
 ZOOM_SHORTCUTS_
 video: shift, command, v
