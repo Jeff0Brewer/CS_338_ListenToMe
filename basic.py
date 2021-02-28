@@ -1,4 +1,6 @@
 import time, threading
+import os 
+
 from nlp import mostSimilar, vectorized_commands
 from speechrecog import text_stream, start_listen
 from state_track import state, start_state_checking
@@ -6,6 +8,8 @@ from shortcut_control import shortcut
 from commands import commands
 from functions import *
 from language_helpers import *
+
+os.system('python preferences.py') #only for mac
 
 KEYWORD = "hey tony"
 
