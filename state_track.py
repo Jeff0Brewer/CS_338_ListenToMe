@@ -15,12 +15,12 @@ img_path = 'img'
 if curr_system != 'Darwin':
 	img_path = os.path.join(img_path, 'win')
 checks = [
-	[os.path.join('img', 'unmute.png'), 'audio', 0],
-	[os.path.join('img', 'mute.png'), 'audio', 1],
-	[os.path.join('img', 'start_video.png'), 'video', 0],
-	[os.path.join('img', 'stop_video.png'), 'video', 1],
-	[os.path.join('img', 'chat_menu.png'), 'chat', 1, 0],
-	[os.path.join('img', 'stop_share.png'), 'share', 1, 0]
+	[os.path.join(img_path, 'unmute.png'), 'audio', 0],
+	[os.path.join(img_path, 'mute.png'), 'audio', 1],
+	[os.path.join(img_path, 'start_video.png'), 'video', 0],
+	[os.path.join(img_path, 'stop_video.png'), 'video', 1],
+	[os.path.join(img_path, 'chat_menu.png'), 'chat', 1, 0],
+	[os.path.join(img_path, 'stop_share.png'), 'share', 1, 0]
 ]
 
 checking = False

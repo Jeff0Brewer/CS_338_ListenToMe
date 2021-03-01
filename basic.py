@@ -7,7 +7,6 @@ from functions import *
 from language_helpers import *
 from nlp import mostSimilar, vectorized_commands
 
-KEYWORD = "hey tony"
 
 macros = {}
 with open('user_settings.txt') as file:
@@ -22,6 +21,7 @@ def main():
 	r = sr.Recognizer()
 	with sr.Microphone() as source:
 		r.adjust_for_ambient_noise(source, duration=3)
+	if r.energy_threshold < 30: r.energy_threshold = 30
 	r.dynamic_energy_threshold = False
 
 	start_state_checking(5)
