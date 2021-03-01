@@ -1,4 +1,5 @@
 from functions import *
+from language_helpers import *
 
 commands = {
     'toggle my hand': toggle_hand,
@@ -14,6 +15,16 @@ commands = {
     'send this message': send_chat,
     'stop listening': quit
 }
+
+macros = {}
+KEYWORD = ""
+with open('user_settings.txt') as file:
+	text = file.read()
+	KEYWORD = sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_').lower()
+	for line in text.split('MACRO_COMMANDS_\n')[1].split('\n'):
+		command, content = line.split(': ')
+		commands['send ' + command] = send_chat
+		macros['send ' + command] = content + '\n'
 
 main_commands = commands.copy()
 

@@ -44,8 +44,6 @@ def send_chat(message):
 	if state['chat'] == 1:
 		shortcut('toggle_chat')
 	shortcut('toggle_chat', content=message)
-	if state['chat'] == 0:
-		shortcut('toggle_chat')
 
 def quit():
 	stop_state_checking()

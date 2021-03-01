@@ -3,20 +3,10 @@ from nlp import mostSimilar, vectorized_commands
 from speechrecog import text_stream, start_listen
 from state_track import state, start_state_checking
 from shortcut_control import shortcut
-from commands import commands
+from commands import KEYWORD, commands, macros
 from functions import *
 from language_helpers import *
 
-KEYWORD = "hey tony"
-
-macros = {}
-with open('user_settings.txt') as file:
-	text = file.read()
-	KEYWORD = sliceBetweenSubstr(text, 'SYSTEM_KEYWORD_\n', '\n\nZOOM_SHORTCUTS_').lower()
-	for line in text.split('MACRO_COMMANDS_\n')[1].split('\n'):
-		command, content = line.split(': ')
-		commands['send ' + command] = send_chat
-		macros['send ' + command] = content + '\n'
 
 def main():
 	global text_stream
@@ -38,7 +28,7 @@ def main():
 		text = sliceAfterSubstr(text, KEYWORD)
 		if not text.strip(): continue
 		compared = mostSimilar(text, [x for x in vectorized_commands])[0]
-		if 'send' not in compared:
+		if 'send this message' not in compared:
 			text = compared
 		for command, callback in commands.items():
 			if command in text:
