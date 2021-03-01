@@ -1,5 +1,6 @@
 from shortcut_control import shortcut
 from state_track import state, stop_state_checking
+from speechrecog import stop_listen
 
 def toggle_hand():
 	shortcut('toggle_hand')
@@ -48,4 +49,5 @@ def send_chat(message):
 
 def quit():
 	stop_state_checking()
+	stop_listen()
 	exit()
