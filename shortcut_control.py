@@ -39,5 +39,5 @@ def shortcut(identifier, content = ''):
 	k.press_keys(shortcuts[identifier])
 	if(len(content) > 0):
 		keyboard.write(content)
-	time.sleep(.5)
+	time.sleep(.2)
 
