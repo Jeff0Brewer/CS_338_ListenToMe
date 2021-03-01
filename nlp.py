@@ -3,6 +3,7 @@ from gensim import models
 from gensim.models import Word2Vec
 from sklearn.metrics.pairwise import cosine_similarity
 from commands import main_commands
+import numpy as np
 
 model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True, limit=500000)
 
@@ -22,9 +23,16 @@ def cleanStr(str):
         str = str.replace(word, repl)
     return str
 
+def forceVectorize(word):
+    vec = np.zeros((300,))
+    for i, char in enumerate(word):
+        vec[i] = (ord(char)/256 - 0.5)
+    return vec
+    
+
 def vectorize(str):
     str = cleanStr(str)
-    return sum([model[word] for word in str.split() if word in model.vocab]).reshape(1, -1)
+    return sum([model[word] if word in model.vocab else forceVectorize(word) for word in str.split()]).reshape(1, -1)
 
 def mostSimilar(str, lstOfStr):
     mostSim = None
