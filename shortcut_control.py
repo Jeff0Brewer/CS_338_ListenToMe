@@ -2,6 +2,7 @@ from language_helpers import *
 from pykeyboard import PyKeyboard # git: https://github.com/SavinaRoja/PyUserInput/blob/master/pykeyboard
 import keyboard # doc: https://pypi.org/project/keyboard/
 import platform
+import time
 
 # Check if Mac or Windows
 curr_system = platform.system() 
@@ -38,4 +39,5 @@ def shortcut(identifier, content = ''):
 	k.press_keys(shortcuts[identifier])
 	if(len(content) > 0):
 		keyboard.write(content)
+	time.sleep(.5)
 
