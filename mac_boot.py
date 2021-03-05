@@ -9,5 +9,5 @@ def is_running(name):
 
 def mac_boot():
 	if not is_running('zoom.us'):
-		subprocess.call(['/usr/bin/open', '-n', '-a', '/Applications/zoom.us.app'])
+	subprocess.call(['/usr/bin/open', '-n', '-a', '/Applications/zoom.us.app'])
 mac_boot()
