@@ -6,7 +6,7 @@ listening = False
 
 r = sr.Recognizer()
 r.dynamic_energy_threshold = False
-r.pause_threshold = .6
+r.pause_threshold = .5
 with sr.Microphone() as source:
 	r.adjust_for_ambient_noise(source, duration=3)
 if r.energy_threshold < 30: r.energy_threshold = 30
