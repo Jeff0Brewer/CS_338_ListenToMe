@@ -13,7 +13,8 @@ commands = {
     'open the chat': open_chat,
     'close the chat': close_chat,
     'send this message': send_chat,
-    'stop listening': quit
+    'stop listening': quit,
+    'leave the meeting': leave_meeting
 }
 
 macros = {}
