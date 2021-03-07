@@ -45,6 +45,9 @@ def send_chat(message):
 		shortcut('toggle_chat')
 	shortcut('toggle_chat', content=message)
 
+def leave_meeting():
+	shortcut('toggle_leave_meeting', content='\n')
+
 def quit():
 	stop_state_checking()
 	stop_listen()
