@@ -5,7 +5,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from commands import main_commands
 import numpy as np
 
+print("Loading NLP model...")
 model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True, limit=500000)
+print("Finished loading NLP model.")
 
 word_replacements = {
     'unmute': 'my mic on',

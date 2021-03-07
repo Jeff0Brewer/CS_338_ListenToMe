@@ -17,10 +17,10 @@ def main():
 	while True:
 		while KEYWORD not in text_stream[0]:
 			time.sleep(.25)
-		text = text_stream[0]
+		raw_text = text_stream[0]
 		text_stream[0] = ''
 
-		print(text)
+		print(raw_text)
 		print(state)
 
 		if curr_system == 'Darwin':
@@ -30,21 +30,26 @@ def main():
 
 		time.sleep(.1)
 
-		text = sliceAfterSubstr(text, KEYWORD)
-		if not text.strip(): continue
-		compared = mostSimilar(text, [x for x in vectorized_commands])[0]
-		if 'send this message' not in compared:
-			text = compared
-		for command, callback in commands.items():
-			if command in text:
-				if 'send' in command:
-					if 'message' in command:
-						callback(sliceAfterSubstr(text, command + ' ') + '\n')
+		raw_text = sliceAfterSubstr(raw_text, KEYWORD)
+		if " and " in raw_text:
+			texts = [sliceUpToSubstr(raw_text, " and "), sliceAfterSubstr(raw_text, " and ")]
+		else:
+			texts = [raw_text]
+		for text in texts:
+			if not text.strip(): continue
+			compared = mostSimilar(text, [x for x in vectorized_commands])[0]
+			if 'send this message' not in compared:
+				text = compared
+			for command, callback in commands.items():
+				if command in text:
+					if 'send' in command:
+						if 'message' in command:
+							callback(sliceAfterSubstr(text, command + ' ') + '\n')
+						else:
+							callback(macros[command])
 					else:
-						callback(macros[command])
-				else:
-					callback()
-				break
+						callback()
+					break
 
 
 if __name__ == '__main__':
