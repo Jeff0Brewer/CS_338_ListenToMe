@@ -40,4 +40,3 @@ def shortcut(identifier, content = ''):
 	if(len(content) > 0):
 		keyboard.write(content)
 	time.sleep(.2)
-

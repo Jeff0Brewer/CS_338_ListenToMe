@@ -1,4 +1,4 @@
-import time, threading
+import time, threading, platform, os
 from nlp import mostSimilar, vectorized_commands
 from speechrecog import text_stream, start_listen
 from state_track import state, start_state_checking
@@ -7,11 +7,12 @@ from commands import KEYWORD, commands, macros
 from functions import *
 from language_helpers import *
 
+curr_system = platform.system()
 
 def main():
 	global text_stream
 
-	start_state_checking(3)
+	start_state_checking(1)
 	start_listen()
 	while True:
 		while KEYWORD not in text_stream[0]:
@@ -22,7 +23,11 @@ def main():
 		print(text)
 		print(state)
 
-		shortcut('focus')
+		if curr_system == 'Darwin':
+			os.system('''/usr/bin/osascript -e 'tell app "Finder" to set frontmost of process "zoom.us" to true' ''')
+		else:
+			shortcut('focus')
+
 		time.sleep(.1)
 
 		text = sliceAfterSubstr(text, KEYWORD)
