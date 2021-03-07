@@ -17,6 +17,12 @@ word_replacements = {
     'audio': 'mic',
     'microphone': 'mic',
     'camera': 'video',
+    'call': 'meeting',
+    'view': 'open',
+    'check': 'open',
+    'exit': 'close',
+    'open': 'turn on',
+    'close': 'turn off'
 
 }
 
