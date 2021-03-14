@@ -28,7 +28,6 @@ Enter this command in appropriate directory to run the program:
 ```python
 python basic.py
 ```
-When speaking, make sure Zoom application is open. 
 
 ## Contributors 
 Jeffrey Brewer, Felipe Caldeira, Rhea Ramaiya, Kathryne Tao

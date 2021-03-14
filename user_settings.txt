@@ -8,6 +8,7 @@ chat: shift, command, h
 share: shift, command, s
 hand: control, y
 fullscreen: shift, command, f
+leave_meeting: shift, command, q
 
 MACRO_COMMANDS_
 my email: examplemail@gmail.com
