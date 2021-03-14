@@ -6,10 +6,15 @@ from shortcut_control import shortcut
 from commands import KEYWORD, commands, macros
 from functions import *
 from language_helpers import *
+from model_download import downloadModel
+from boot import bootZoom
 
 curr_system = platform.system()
 
 def main():
+	downloadModel()
+	bootZoom()
+
 	global text_stream
 
 	start_state_checking(1)
