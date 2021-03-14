@@ -2,3 +2,5 @@ __pycache__/
 .vscode/
 .DS_Store
 GoogleNews-vectors-negative300.bin.gz
+user_settings.txt
+test.py
