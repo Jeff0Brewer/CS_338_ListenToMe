@@ -6,17 +6,17 @@ from shortcut_control import shortcut
 from commands import KEYWORD, commands, macros
 from functions import *
 from language_helpers import *
-
-try:
-	print('Checking to see if preferences are set for terminal access...')
-	os.system('python preferences.py')
-except:
-	print('Not on Mac. Please manually check system preferences for terminal access')
+from model_download import downloadModel
+from boot import bootZoom
+from preferences import commandLineControlMac
 
 curr_system = platform.system()
-print('All set up! You can start using', KEYWORD, 'now.')
 
 def main():
+	downloadModel()
+	commandLineControlMac()
+	bootZoom()
+
 	global text_stream
 
 	start_state_checking(1)
