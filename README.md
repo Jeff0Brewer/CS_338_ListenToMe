@@ -1,17 +1,13 @@
 # CS_338_ListenToMe
 
-ListenToMe is a project developed for our CS_338 class at Northwestern. The main purpose of this project is to allow Zoom users to have the ability to control Zoom functionality using voice commands. This would provide more accessibility for impaired users, as well as more general ease-of-use for all users. It will also be useful for teachers and professors who have a difficult time navigating Zoom. Throughout a Zoom call, Listen to Me will use speech recognition as well as Natural Language Processing to listen for cues for when to execute a function. This allows not only for keyword-based commands (‘Zoom, share my screen’  → screen share), but also for more natural command flows (‘Now I’m going to share my screen’  → screen share). Some functions that users will be able to execute using Listen to Me include:
+ListenToMe is a project developed for our CS_338 class at Northwestern. The main purpose of this project is to allow Zoom users to have the ability to control Zoom functionality using voice commands. This would provide more accessibility for impaired users, as well as more general ease-of-use for all users. It will also be useful for teachers and professors who have a difficult time navigating Zoom. Throughout a Zoom call, Listen to Me will use speech recognition as well as Natural Language Processing to listen for cues for when to execute a function. This allows not only for keyword-based commands (‘Zoom, share my screen’  → screen share), but also for more natural command flows (‘Now I’m going to share my screen’  → screen share). Some functions that users are able to execute using Listen to Me include:
 
-* Toggle mute
-* Toggle video
-* Share/unshare screen
-* Audio sharing 
-* Poll functions 
-* Use reaction
-* Send message in text chat
-* Leave meeting
-* Open/Join Breakout Rooms
-* Participant buttons 
+* mute/unmute audio
+* start/stop video
+* share/unshare screen
+* send message in text chat
+* raise/lower hand
+* leave meeting
 
 ## Setup/Installation
 
