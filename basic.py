@@ -6,14 +6,12 @@ from shortcut_control import shortcut
 from commands import KEYWORD, commands, macros
 from functions import *
 from language_helpers import *
-from model_download import downloadModel
 from boot import bootZoom
 from preferences import commandLineControlMac
 
 curr_system = platform.system()
 
 def main():
-	downloadModel()
 	commandLineControlMac()
 	bootZoom()
 
